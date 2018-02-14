@@ -12,9 +12,12 @@ class SearchHistory extends Component {
       return null;
     }
     return(
-      <ul>
-        {this.props.searchHistory.map(this._renderWords)}
-      </ul>
+      <div>
+        <h3>Your search history: </h3>
+        <ul>
+          {this.props.searchHistory.map(this._renderWords)}
+        </ul>
+      </div>
     );
   }
 }

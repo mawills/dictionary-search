@@ -22,6 +22,7 @@ class SearchBar extends Component {
     }
     return(
       <div>
+        <p>Enter words separated by commas, then press submit to look up definitions</p>
         <div>
           <textarea
             value={this.state.term}
@@ -36,7 +37,6 @@ class SearchBar extends Component {
             onClick={event => this.onSubmit(this.state.term)} >
             Submit</button>
         </div>
-        <p>Enter words separated by commas.</p>
       </div>
     );
   }

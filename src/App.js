@@ -41,7 +41,7 @@ class App extends Component {
     localStorage.setItem('search-history', JSON.stringify(searchHistoryWordsArray));
 
     for(let word of this.state.words) {
-      //this.lookupWord(word);
+      this.lookupWord(word);
     }
   }
 
@@ -49,7 +49,7 @@ class App extends Component {
     const url = `${ROOT_URL}/search/en/${word}`;
     const config = {
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'https://mawills.github.io',
         'app_id': APP_ID,
         'app_key': API_KEY
         }

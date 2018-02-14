@@ -6,7 +6,8 @@ const WordDetail = ({word}) => {
   }
 
   return(
-    <div> Found x words. Couldnt find y words. </div>
+    <div>{word}</div>
+    <div>Description</div>
   );
 }
 
