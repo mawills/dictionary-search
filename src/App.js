@@ -24,7 +24,6 @@ class App extends Component {
 
  _toggleHistoryView(toggle) {
     this.setState({ isHistoryView: toggle });
-    console.log(this.state);
   }
 
   _parseSearchTerm(term) {
@@ -40,19 +39,23 @@ class App extends Component {
     this.setState({ words: searchTermWordsArray });
     localStorage.setItem('search-history', JSON.stringify(searchHistoryWordsArray));
 
-    for(let word of this.state.words) {
-      this.lookupWord(word);
+    console.log(this.state.words);
+    console.log(searchTermWordsArray);
+
+    for(let word of searchTermWordsArray) {
+      this._lookupWord(word);
     }
   }
 
   _lookupWord(word) {
+    axios.defaults.crossDomain = true;
     const url = `${ROOT_URL}/search/en/${word}`;
     const config = {
       headers: {
-        'Access-Control-Allow-Origin': 'https://mawills.github.io',
         'app_id': APP_ID,
         'app_key': API_KEY
-        }
+      },
+      contentType: 'text/plain'
     }
     axios.get(url, config)
       .then(function (response) {
