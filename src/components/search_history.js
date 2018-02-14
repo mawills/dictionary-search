@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-//TODO: Store in local
-const SearchHistory = (props) => {
-  const words = props.words.map( (word) => {
+class SearchHistory extends Component {
+  _renderWords(word) {
     return(
-      <li>{word}</li>
+      <li key={word} >{word}</li>
     );
-  });
+  }
 
-  return(
-    <ul>
-      {words}
-    </ul>
-  );
-};
+  render() {
+    if(!this.props.isHistoryView) {
+      return null;
+    }
+    return(
+      <ul>
+        {this.props.searchHistory.map(this._renderWords)}
+      </ul>
+    );
+  }
+}
 
 export default SearchHistory;

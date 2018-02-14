@@ -5,6 +5,7 @@ import SearchBar from './components/search_bar';
 import TabList from './components/tab_list';
 import WordList from './components/word_list';
 import SearchHistory from './components/search_history';
+import searchHistory from './getSearchHistory';
 
 const APP_ID = '7d64b4c4';
 const API_KEY = 'a038417f5a31b680504fdad206a4e3f6'
@@ -16,6 +17,7 @@ class App extends Component {
 
     this.state = {
       words: [],
+      searchHistory: searchHistory,
       isHistoryView: false
      };
    }
@@ -25,20 +27,21 @@ class App extends Component {
     console.log(this.state);
   }
 
-  _parseWords(term) {
+  _parseSearchTerm(term) {
     //TODO: Trim spaces.
-    var parse = [];
-    parse = term.split(',');
+    let parse = term.split(',');
+    var searchTermWordsArray = [];
+    var searchHistoryWordsArray = this.state.searchHistory;
 
-    var wordsArray = this.state.words;
     for(let word of parse) {
-      wordsArray.push(word);
+      searchTermWordsArray.push(word);
+      searchHistoryWordsArray.push(word);
     }
-    this.setState({ words: wordsArray });
-    console.log(this.state.words);
+    this.setState({ words: searchTermWordsArray });
+    localStorage.setItem('search-history', JSON.stringify(searchHistoryWordsArray));
 
     for(let word of this.state.words) {
-      this.lookupWord(word);
+      //this.lookupWord(word);
     }
   }
 
@@ -68,13 +71,13 @@ class App extends Component {
       <div className="App">
         <TabList toggleHistoryView={toggle => this._toggleHistoryView(toggle)} />
         <SearchBar
-          onSearchTermChange={term => this._parseWords(term)}
+          onSearchTermChange={term => this._parseSearchTerm(term)}
           isHistoryView={this.state.isHistoryView} />
         <WordList
           words={this.state.words}
           isHistoryView={this.state.isHistoryView} />
         <SearchHistory
-          words={this.state.words}
+          searchHistory={this.state.searchHistory}
           isHistoryView={this.state.isHistoryView} />
       </div>
     );
