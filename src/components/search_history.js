@@ -1,10 +1,18 @@
 import React from 'react';
 
-class SearchHistory extends Component {
-  render() {
+//TODO: Store in local
+const SearchHistory = (props) => {
+  const words = props.words.map( (word) => {
     return(
-      <div>Search history goes here.</div>
+      <li>{word}</li>
     );
-  }
-}
+  });
+
+  return(
+    <ul>
+      {words}
+    </ul>
+  );
+};
+
 export default SearchHistory;

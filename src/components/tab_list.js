@@ -5,7 +5,7 @@ class TabList extends Component {
     return(
       <div>
         <button type="button">Search</button>
-        <button type="button">History</button>
+        <button type="button">View History</button>
       </div>
     );
   }

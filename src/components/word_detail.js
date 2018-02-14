@@ -4,10 +4,10 @@ const WordDetail = ({word}) => {
   if(!word) {
     return <div>Loading...</div>;
   }
-
+//<div>{word.lexicalEntries.entries.senses.definitions[0]}</div>
   return(
     <li>
-      <div>Word</div>
+      <div>{word}</div>
       <div>Definition</div>
     </li>
   );
