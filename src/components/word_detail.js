@@ -6,8 +6,10 @@ const WordDetail = ({word}) => {
   }
 
   return(
-    <div>{word}</div>
-    <div>Description</div>
+    <div>
+      <div>{word}</div>
+      <div>Description</div>
+    </div>
   );
 }
 
