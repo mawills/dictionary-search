@@ -4,8 +4,8 @@ class TabList extends Component {
   render() {
     return(
       <div>
-        <button type="button">Search</button>
-        <button type="button">View History</button>
+        <button type="button" onClick={event => this.props.toggleHistoryView(false)} >Search</button>
+        <button type="button" onClick={event => this.props.toggleHistoryView(true)} >View History</button>
       </div>
     );
   }

@@ -17,6 +17,9 @@ class SearchBar extends Component {
   }
 
   render() {
+    if(this.props.isHistoryView) {
+      return null;
+    }
     return(
       <div>
         <div>

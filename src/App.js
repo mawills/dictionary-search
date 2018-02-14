@@ -6,7 +6,6 @@ import TabList from './components/tab_list';
 import WordList from './components/word_list';
 import SearchHistory from './components/search_history';
 
-
 const APP_ID = '7d64b4c4';
 const API_KEY = 'a038417f5a31b680504fdad206a4e3f6'
 const ROOT_URL = 'https://od-api.oxforddictionaries.com/api/v1';
@@ -15,10 +14,18 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { words: [] };
+    this.state = {
+      words: [],
+      isHistoryView: false
+     };
+   }
+
+ _toggleHistoryView(toggle) {
+    this.setState({ isHistoryView: toggle });
+    console.log(this.state);
   }
 
-  parseWords(term) {
+  _parseWords(term) {
     //TODO: Trim spaces.
     var parse = [];
     parse = term.split(',');
@@ -35,10 +42,11 @@ class App extends Component {
     }
   }
 
-  lookupWord(word) {
+  _lookupWord(word) {
     const url = `${ROOT_URL}/search/en/${word}`;
     const config = {
       headers: {
+        'Access-Control-Allow-Origin': '*',
         'app_id': APP_ID,
         'app_key': API_KEY
         }
@@ -58,10 +66,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TabList />
-        <SearchBar onSearchTermChange={term => this.parseWords(term)} />
-        <WordList words={this.state.words} />
-        <SearchHistory words={this.state.words} />
+        <TabList toggleHistoryView={toggle => this._toggleHistoryView(toggle)} />
+        <SearchBar
+          onSearchTermChange={term => this._parseWords(term)}
+          isHistoryView={this.state.isHistoryView} />
+        <WordList
+          words={this.state.words}
+          isHistoryView={this.state.isHistoryView} />
+        <SearchHistory
+          words={this.state.words}
+          isHistoryView={this.state.isHistoryView} />
       </div>
     );
   }
