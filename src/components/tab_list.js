@@ -12,8 +12,8 @@ class TabList extends Component {
             </a>
           </ul>
             <ul className="nav navbar-nav">
-              <li><a href="" onClick={event => this.props.toggleHistoryView(false)}>Search</a></li>
-              <li><a href="" onClick={event => this.props.toggleHistoryView(true)}>View History</a></li>
+              <li><a href="#" onClick={event => this.props.toggleHistoryView(false)}>Search</a></li>
+              <li><a href="#" onClick={event => this.props.toggleHistoryView(true)}>View History</a></li>
             </ul>
         </div>
       </nav>

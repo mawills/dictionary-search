@@ -17,6 +17,9 @@ class SearchBar extends Component {
   }
 
   render() {
+    if(this.props.isHistoryView) {
+      return null;
+    }
     return(
       <div>
         <h3>Enter words separated by commas, then press submit to look up definitions</h3>

@@ -52,7 +52,7 @@ class App extends Component {
     const config = {
       headers: {
         'app_id': APP_ID,
-        'app_key': API_KEY,
+        'app_key': API_KEY
       },
       contentType: 'text/plain'
     }
@@ -69,24 +69,21 @@ class App extends Component {
   }
 
   render() {
-    if(!this.state.isHistoryView) {
-      return(
-        <div className="App">
-          <TabList toggleHistoryView={toggle => this._toggleHistoryView(toggle)} />
-          <SearchBar onSearchTermChange={term => this._parseSearchTerm(term)} />
-          <WordList words={this.state.words} />
-        </div>
-      );
-    }
-    else {
-      return(
-        <div className="App">
-          <TabList toggleHistoryView={toggle => this._toggleHistoryView(toggle)} />
-          <SearchHistory searchHistory={this.state.searchHistory} />
-        </div>
-      );
-    }
-
+    return(
+      <div className="App">
+        <TabList
+          toggleHistoryView={toggle => this._toggleHistoryView(toggle)} />
+        <SearchBar
+          onSearchTermChange={term => this._parseSearchTerm(term)}
+          isHistoryView={this.state.isHistoryView} />
+        <WordList
+          words={this.state.words}
+          isHistoryView={this.state.isHistoryView} />
+        <SearchHistory
+          searchHistory={this.state.searchHistory}
+          isHistoryView={this.state.isHistoryView} />
+      </div>
+    );
   }
 }
 

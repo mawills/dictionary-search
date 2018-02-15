@@ -8,6 +8,9 @@ class SearchHistory extends Component {
   }
 
   render() {
+    if(!this.props.isHistoryView) {
+      return null;
+    }
     return(
       <div>
         <h3>Your search history: </h3>
