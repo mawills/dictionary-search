@@ -6,10 +6,15 @@ import TabList from './components/tab_list';
 import WordList from './components/word_list';
 import SearchHistory from './components/search_history';
 import searchHistory from './getSearchHistory';
+import $ from 'jquery';
 
+/* oxford dictionaries api info
 const APP_ID = '7d64b4c4';
 const API_KEY = 'a038417f5a31b680504fdad206a4e3f6';
-const ROOT_URL = 'https://od-api.oxforddictionaries.com:443/api/v1';
+const ROOT_URL = 'https://od-api.oxforddictionaries.com:443/api/v1';*/
+
+const API_KEY = 'de082571-069a-4866-a497-fb562d003326';
+const ROOT_URL = 'https://www.dictionaryapi.com/api/v1/references/collegiate/xml';
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +22,7 @@ class App extends Component {
 
     this.state = {
       words: [],
+      missingWords: [],
       searchHistory: searchHistory,
       isHistoryView: false
      };
@@ -29,41 +35,35 @@ class App extends Component {
   _parseSearchTerm(term) {
     //TODO: Trim spaces.
     let parse = term.split(',');
-    var searchTermWordsArray = [];
-    var searchHistoryWordsArray = this.state.searchHistory;
+    let searchHistoryWordsArray = this.state.searchHistory;
 
     for(let word of parse) {
-      searchTermWordsArray.push(word);
       searchHistoryWordsArray.push(word);
-    }
-    this.setState({ words: searchTermWordsArray });
-    localStorage.setItem('search-history', JSON.stringify(searchHistoryWordsArray));
-
-    console.log(searchTermWordsArray);
-
-    for(let word of searchTermWordsArray) {
       this._lookupWord(word);
     }
+    localStorage.setItem('search-history', JSON.stringify(searchHistoryWordsArray));
   }
 
   _lookupWord(word) {
-    const url = `${ROOT_URL}/search/en/${word}`;
-    const config = {
-      headers: {
-        Accept: "application/json",
-        app_id: APP_ID,
-        app_key: API_KEY
-      },
-      contentType: 'application/json'
-    }
-    axios.get(url, config)
-      .then(function (response) {
-        if(response.status === 200) {
-          console.log(response.headers);
-          return response.results[0];
-        }
-        else {
-          alert('Error: Recieved response ' + response.status);
+    const url = `${ROOT_URL}/${word}?key=${API_KEY}`;
+    axios.get(url)
+      .then((response) => {
+        switch(response.status) {
+          case 200:
+            if($(response.data).find("dt").html()) {
+              let newWordsArray = this.state.words;
+              newWordsArray.push({
+                word: word,
+                definition: $(response.data).find("dt").html()
+              });
+              this.setState({ words: newWordsArray });
+            }
+            else {
+              this.setState({ missingWords: this.state.missingWords.concat(word) });
+            }
+            break;
+          default:
+            alert('Error: Recieved response ' + response.status);
         }
       });
   }

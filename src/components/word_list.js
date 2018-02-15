@@ -1,13 +1,15 @@
 import React from 'react';
-import WordDetail from './word_detail';
 
 const WordList = (props) => {
   if(props.isHistoryView) {
     return null;
   }
-  const words = props.words.map( (word) => {
+  const searchHistory = props.words.map( (word) => {
     return(
-      <li className="list-group-item" key={word} ><WordDetail word={word} /></li>
+      <li className="list-group-item" key={word.word} >
+        <div>{word.word}</div>
+        <div>{word.definition}</div>
+      </li>
     );
   });
 
@@ -16,7 +18,7 @@ const WordList = (props) => {
       <h3>Here are the results:</h3>
       <p>Found -- words, unable to find words ----, ----, ----</p>
       <ul className="list-group" >
-        {words}
+        {searchHistory}
       </ul>
     </div>
   );
