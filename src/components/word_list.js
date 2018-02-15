@@ -4,7 +4,8 @@ const WordList = (props) => {
   if(props.isHistoryView) {
     return null;
   }
-  const searchHistory = props.words.map( (word) => {
+
+  const searchResults = props.words.map( (word) => {
     return(
       <li className="list-group-item" key={word.word} >
         <div>{word.word}</div>
@@ -13,12 +14,21 @@ const WordList = (props) => {
     );
   });
 
+  const missingWords = props.missingWords.map( (word) => {
+    return(
+      <span className="red">{word} </span>
+    );
+  });
+
   return(
     <div>
       <h3>Here are the results:</h3>
-      <p>Found -- words, unable to find words ----, ----, ----</p>
+      <p>
+        Found <span className="green">{props.words.length}</span> words.
+        Unable to find <span className="red">{props.missingWords.length}</span> words: {missingWords}
+      </p>
       <ul className="list-group" >
-        {searchHistory}
+        {searchResults}
       </ul>
     </div>
   );

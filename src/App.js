@@ -33,6 +33,11 @@ class App extends Component {
   }
 
   _parseSearchTerm(term) {
+    this.setState({
+      words: [],
+      missingWords: []
+    });
+
     //TODO: Trim spaces.
     let parse = term.split(',');
     let searchHistoryWordsArray = this.state.searchHistory;
@@ -45,27 +50,29 @@ class App extends Component {
   }
 
   _lookupWord(word) {
-    const url = `${ROOT_URL}/${word}?key=${API_KEY}`;
-    axios.get(url)
-      .then((response) => {
-        switch(response.status) {
-          case 200:
-            if($(response.data).find("dt").html()) {
-              let newWordsArray = this.state.words;
-              newWordsArray.push({
-                word: word,
-                definition: $(response.data).find("dt").html()
-              });
-              this.setState({ words: newWordsArray });
-            }
-            else {
-              this.setState({ missingWords: this.state.missingWords.concat(word) });
-            }
-            break;
-          default:
-            alert('Error: Recieved response ' + response.status);
-        }
-      });
+    if(word.length > 0) {
+      const url = `${ROOT_URL}/${word}?key=${API_KEY}`;
+      axios.get(url)
+        .then((response) => {
+          switch(response.status) {
+            case 200:
+              if($(response.data).find("dt").html()) {
+                let newWordsArray = this.state.words;
+                newWordsArray.push({
+                  word: word,
+                  definition: $(response.data).find("dt").html()
+                });
+                this.setState({ words: newWordsArray });
+              }
+              else {
+                this.setState({ missingWords: this.state.missingWords.concat(word) });
+              }
+              break;
+            default:
+              alert('Error: Recieved response ' + response.status);
+          }
+        });
+    }
   }
 
   render() {
@@ -78,6 +85,7 @@ class App extends Component {
           isHistoryView={this.state.isHistoryView} />
         <WordList
           words={this.state.words}
+          missingWords={this.state.missingWords}
           isHistoryView={this.state.isHistoryView} />
         <SearchHistory
           searchHistory={this.state.searchHistory}
