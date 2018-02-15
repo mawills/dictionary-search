@@ -39,7 +39,6 @@ class App extends Component {
     this.setState({ words: searchTermWordsArray });
     localStorage.setItem('search-history', JSON.stringify(searchHistoryWordsArray));
 
-    console.log(this.state.words);
     console.log(searchTermWordsArray);
 
     for(let word of searchTermWordsArray) {
@@ -51,6 +50,7 @@ class App extends Component {
     const url = `${ROOT_URL}/search/en/${word}`;
     const config = {
       headers: {
+        'Accept': "application/json",
         'app_id': APP_ID,
         'app_key': API_KEY
       },

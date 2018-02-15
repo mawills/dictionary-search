@@ -7,14 +7,18 @@ const WordList = (props) => {
   }
   const words = props.words.map( (word) => {
     return(
-      <li className="list-group-item" ><WordDetail key={word} word={word} /></li>
+      <li className="list-group-item" key={word} ><WordDetail word={word} /></li>
     );
   });
 
   return(
-    <ul className="list-group" >
-      {words}
-    </ul>
+    <div>
+      <h3>Here are the results:</h3>
+      <p>Found -- words, unable to find words ----, ----, ----</p>
+      <ul className="list-group" >
+        {words}
+      </ul>
+    </div>
   );
 };
 
