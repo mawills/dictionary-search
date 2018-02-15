@@ -9,7 +9,7 @@ import searchHistory from './getSearchHistory';
 
 const APP_ID = '7d64b4c4';
 const API_KEY = 'a038417f5a31b680504fdad206a4e3f6';
-const ROOT_URL = 'https://od-api.oxforddictionaries.com/api/v1';
+const ROOT_URL = 'https://od-api.oxforddictionaries.com:443/api/v1';
 
 class App extends Component {
   constructor(props) {
@@ -50,11 +50,11 @@ class App extends Component {
     const url = `${ROOT_URL}/search/en/${word}`;
     const config = {
       headers: {
-        'Accept': "application/json",
-        'app_id': APP_ID,
-        'app_key': API_KEY
+        Accept: "application/json",
+        app_id: APP_ID,
+        app_key: API_KEY
       },
-      contentType: 'text/plain'
+      contentType: 'application/json'
     }
     axios.get(url, config)
       .then(function (response) {
