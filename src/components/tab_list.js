@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
+import githubLogo from '../images/github-logo.png';
 
 class TabList extends Component {
   render() {
     return(
-      <div>
-        <button type="button" onClick={event => this.props.toggleHistoryView(false)} >Search</button>
-        <button type="button" onClick={event => this.props.toggleHistoryView(true)} >View History</button>
-      </div>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <ul className="nav navbar-nav">
+            <a href="https://github.com/mawills/dictionary-search">
+              <img alt="GitHub" target="_blank" className="github-logo" src={githubLogo} />
+            </a>
+          </ul>
+            <ul className="nav navbar-nav">
+              <li><a href="" onClick={event => this.props.toggleHistoryView(false)}>Search</a></li>
+              <li><a href="" onClick={event => this.props.toggleHistoryView(true)}>View History</a></li>
+            </ul>
+        </div>
+      </nav>
     );
   }
 }

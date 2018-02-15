@@ -4,14 +4,12 @@ import WordDetail from './word_detail';
 const WordList = (props) => {
   const words = props.words.map( (word) => {
     return(
-      <WordDetail
-        key={word}
-        word={word} />
+      <li className="list-group-item" ><WordDetail key={word} word={word} /></li>
     );
   });
 
   return(
-    <ul>
+    <ul className="list-group" >
       {words}
     </ul>
   );

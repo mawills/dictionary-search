@@ -17,12 +17,9 @@ class SearchBar extends Component {
   }
 
   render() {
-    if(this.props.isHistoryView) {
-      return null;
-    }
     return(
       <div>
-        <p>Enter words separated by commas, then press submit to look up definitions</p>
+        <h3>Enter words separated by commas, then press submit to look up definitions</h3>
         <div>
           <textarea
             value={this.state.term}
@@ -34,6 +31,7 @@ class SearchBar extends Component {
         <div>
           <button
             type="button"
+            className="btn btn-primary"
             onClick={event => this.onSubmit(this.state.term)} >
             Submit</button>
         </div>
