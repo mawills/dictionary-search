@@ -62,7 +62,7 @@ class App extends Component {
     const url = `${ROOT_URL}/${word}?format=json`;
     axios.get(url)
       .then((response) => {
-        if(response.status ==  200) {
+        if(response.status === 200) {
           if(response.data.length > 0) {
             let newWordsArray = this.state.words;
             newWordsArray.push({
