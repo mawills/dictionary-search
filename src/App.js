@@ -10,12 +10,10 @@ import searchHistoryStorage from './getSearchHistory';
 /* oxford dictionaries api info
 const APP_ID = '7d64b4c4';
 const API_KEY = 'a038417f5a31b680504fdad206a4e3f6';
-const ROOT_URL = 'https://od-api.oxforddictionaries.com:443/api/v1';
+const ROOT_URL = 'https://od-api.oxforddictionaries.com:443/api/v1';*/
 
-merriam webster api info
-const API_KEY = 'de082571-069a-4866-a497-fb562d003326';
-const ROOT_URL = 'https://www.dictionaryapi.com/api/v1/references/collegiate/xml';*/
-
+// my-little-cors-proxy is a workaround for working with remote APIs that
+// don't stamp the responses with a relaxed Access-Control-Allow-Origin.
 const ROOT_URL = 'https://my-little-cors-proxy.herokuapp.com/https://owlbot.info//api/v2/dictionary';
 
 class App extends Component {
@@ -64,23 +62,22 @@ class App extends Component {
     const url = `${ROOT_URL}/${word}?format=json`;
     axios.get(url)
       .then((response) => {
-        switch(response.status) {
-          case 200:
-            if(response.data.length > 0) {
-              let newWordsArray = this.state.words;
-              newWordsArray.push({
-                word: word,
-                definition: response.data[0].definition
-              });
-              this.setState({ words: newWordsArray });
-            }
-            else {
-              this.setState({ missingWords: this.state.missingWords.concat(word) });
-            }
-            break;
-          default:
-            alert('Error: Recieved response ' + response.status);
+        if(response.status ==  200) {
+          if(response.data.length > 0) {
+            let newWordsArray = this.state.words;
+            newWordsArray.push({
+              word: word,
+              definition: response.data[0].definition
+            });
+            this.setState({ words: newWordsArray });
+          }
+          else {
+            this.setState({ missingWords: this.state.missingWords.concat(word) });
+          }
         }
+      })
+      .catch((error) => {
+        this.setState({ missingWords: this.state.missingWords.concat(word) });
       });
   }
 
