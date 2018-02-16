@@ -6,7 +6,7 @@ class SearchHistory extends Component {
       <li className="list-group-item" key={word} >{word}</li>
     );
   }
-
+  
   render() {
     if(!this.props.isHistoryView) {
       return null;
