@@ -34,6 +34,15 @@ class App extends Component {
     this.setState({ isHistoryView: toggle });
   }
 
+  _onClearHistory() {
+    this.setState({
+      words: [],
+      missingWords: [],
+      searchHistory: []
+     });
+    localStorage.clear();
+  }
+
   _parseSearchTerm(term) {
     this.setState({
       words: [],
@@ -88,6 +97,7 @@ class App extends Component {
           missingWords={this.state.missingWords}
           isHistoryView={this.state.isHistoryView} />
         <SearchHistory
+          onClearHistory={event => this._onClearHistory()}
           searchHistory={this.state.searchHistory}
           isHistoryView={this.state.isHistoryView} />
       </div>
