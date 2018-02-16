@@ -37,7 +37,6 @@ class App extends Component {
       words: [],
       missingWords: []
     });
-
     //TODO: Trim spaces.
     let parse = term.split(',');
     let searchHistoryWordsArray = this.state.searchHistory;
