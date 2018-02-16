@@ -5,9 +5,9 @@ const WordList = (props) => {
     return null;
   }
 
-  const searchResults = props.words.map( (word) => {
+  const searchResults = props.words.map( (word,index) => {
     return(
-      <li className="list-group-item" key={word.word} >
+      <li className="list-group-item" key={index} >
         <div>{word.word}</div>
         <div>{word.definition}</div>
       </li>

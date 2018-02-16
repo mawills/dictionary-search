@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import githubLogo from '../images/github-logo.png';
 

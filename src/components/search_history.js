@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 class SearchHistory extends Component {
-  _renderWords(word) {
+  _renderWords(word,index) {
     return(
-      <li className="list-group-item" key={word} >{word}</li>
+      <li className="list-group-item" key={index} >{word}</li>
     );
   }
 
